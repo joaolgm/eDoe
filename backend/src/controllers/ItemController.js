@@ -3,7 +3,7 @@ const Item = require('../models/Item');
 module.exports = {
     async adicionarItem(req, res) {
 
-        console.log(req.body);
+        const { id, descritor, tags, quantidade } = req.body;
 
         const item = await Item.create({
             id,
@@ -12,6 +12,6 @@ module.exports = {
             quantidade   
         });
 
-        return res.json({ ok: true })
+        return res.json(item);
     }
 }
