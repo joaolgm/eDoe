@@ -28,11 +28,14 @@ module.exports = {
 
         const doadorExiste = await Usuario.findOne({ id: doc });
 
-        if(doadorExiste) {
-            return res.json(doadorExiste);
+        if(!doadorExiste) {
+            return res.status(400).json({ error: `Usuário não encontrado: ${doc}` });
         }
         
-        return res.status(400).json({ error: 'Usuário não encontrado: id' });
+        var status = (doadorExiste.classe == "pessoa fisica" ? "doador" : "receptor");
+
+        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`);
+       
     },
 
     async pesquisaUsuarioPorNome(req, res) {
@@ -40,11 +43,14 @@ module.exports = {
 
         const doadorExiste = await Usuario.findOne({ nome: nome });
 
-        if(doadorExiste) {
-            return res.json(doadorExiste);
+        if(!doadorExiste) {
+            return res.status(400).json({ error: 'Usuário não encontrado: nome'});
         }
 
-        return res.status(400).json({ error: 'Usuário não encontrado: nome'});
+        var status = (doadorExiste.classe == "pessoa fisica" ? "doador" : "receptor");
+
+        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`);
+       
     },
 
     async atualizaUsuario(req, res) {
