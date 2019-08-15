@@ -2,20 +2,18 @@ const Usuario = require('../models/Usuario');
 
 module.exports = {
     async adicionaDoador(req, res) {
-        const { doc } = req.body;
+        const doc = req.body;
 
-        const doadorExiste = await Usuario.findOne({ id: doc });
+        const doadorExiste = await Usuario.findOne({ id: doc.id });
 
         if(doadorExiste) {
             return res.json(doadorExiste);
         }
 
-        const response = req.body; // de onde pego o dado?
-
-        const { nome, email, celular, classe } = await response.data;
+        const { id, nome, email, celular, classe } = req.body;
 
         const doador = await Usuario.create({
-            id: doc,
+            id,
             nome,
             email,
             celular,
@@ -26,7 +24,7 @@ module.exports = {
     },
 
     async pesquisaUsuarioPorId(req, res) {
-        const { doc } = req.params;
+        const doc = req.params.id;
 
         const doadorExiste = await Usuario.findOne({ id: doc });
 
@@ -34,6 +32,44 @@ module.exports = {
             return res.json(doadorExiste);
         }
         
-        return res.status(400).json({ error: 'Doador não existe' });
+        return res.status(400).json({ error: 'Usuário não encontrado: id' });
+    },
+
+    async pesquisaUsuarioPorNome(req, res) {
+        const nome = req.params.nome;
+
+        const doadorExiste = await Usuario.findOne({ nome: nome });
+
+        if(doadorExiste) {
+            return res.json(doadorExiste);
+        }
+
+        return res.status(400).json({ error: 'Usuário não encontrado: nome'});
+    },
+
+    async atualizaUsuario(req, res) {
+        const doc = req.params.id;
+
+        const update = req.body;
+
+        try {
+            const atualizaDoador = await Usuario.findOneAndUpdate({ id: doc }, update, {
+                new: true
+            });
+            return res.json(atualizaDoador);
+        } catch (err) {
+            return res.status(400).json({ error: 'Usuário não encontrado: id' });
+        }
+    },
+
+    async removeUsuario(req, res) {
+        const doc = req.params.id;
+
+        try {
+            const removeUsuario = await Usuario.findOneAndDelete({ id: doc });
+            return res.json(removeUsuario);
+        } catch (err) {
+            return res.status(400).json({ error: 'Usuário não encontrado: id' });
+        }
     }
 };
