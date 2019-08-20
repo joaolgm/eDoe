@@ -1,24 +1,15 @@
 const Usuario = require('../models/Usuario');
+const Util = require('../Util');
 
 module.exports = {
     async adicionaDoador(req, res) {
         const { id, nome, email, celular, classe } = req.body;
 
-        if(!id) {
-            return res.status(400).json({ error: "Entrada invalida: id do usuario nao pode ser vazio ou nulo." });
-        }
-        else if(!nome) {
-            return res.status(400).json({ error: "Entrada invalida: nome nao pode ser vazio ou nulo." });
-        }
-        else if(!email) {
-            return res.status(400).json({ error: "Entrada invalida: email nao pode ser vazio ou nulo." });
-        }
-        else if(!celular) {
-            return res.status(400).json({ error: "Entrada invalida: celular nao pode ser vazio ou nulo." });
-        }
-        else if(!classe) {
-            return res.status(400).json({ error: "Entrada invalida: classe nao pode ser vazia ou nula." });
-        }
+        Util.checaId(id, res);
+        Util.checaNome(nome, res);
+        Util.checaEmail(email, res);
+        Util.checaCelular(celular, res);
+        Util.checaClasse(classe, res);
 
         const doadorExiste = await Usuario.findOne({ id: id });
 
@@ -40,9 +31,7 @@ module.exports = {
     async pesquisaUsuarioPorId(req, res) {
         const doc = req.params.id;
 
-        if(!id) {
-            return res.status(400).json({ error: "Entrada invalida: id do usuario nao pode ser vazio ou nulo." });
-        }
+        Util.checaId(doc, res);
 
         const doadorExiste = await Usuario.findOne({ id: doc });
 
@@ -59,9 +48,7 @@ module.exports = {
     async pesquisaUsuarioPorNome(req, res) {
         const nome = req.params.nome;
 
-        if(!nome) {
-            return res.status(400).json({ error: "Entrada invalida: nome nao pode ser vazio ou nulo." });
-        }
+        Util.checaNome(nome, res);
 
         const doadorExiste = await Usuario.findOne({ nome: nome });
 
@@ -78,9 +65,7 @@ module.exports = {
     async atualizaUsuario(req, res) {   //problema para pegar vazio na rota
         const doc = req.params.id;
 
-        if(!doc) {
-            return res.status(400).json({ error: "Entrada invalida: id do usuario nao pode ser vazio ou nulo." });
-        }
+        Util.checaId(doc, res);
 
         const update = req.body;
 
@@ -97,9 +82,7 @@ module.exports = {
     async removeUsuario(req, res) {   //problema para pegar vazio na rota
         const doc = req.params.id;
 
-        if(!doc) {
-            return res.status(400).json({ error: "Entrada invalida: id do usuario nao pode ser vazio ou nulo." });
-        }
+        Util.checaId(doc, res);
 
         try {
             const removeUsuario = await Usuario.findOneAndDelete({ id: doc });

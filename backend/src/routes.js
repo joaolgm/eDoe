@@ -12,8 +12,8 @@ routes.post('/doador', DoadorController.adicionaDoador);
 routes.post('/receptor', ReceptorController.adicionaReceptor);
 routes.post('/item', ItemController.adicionarItem);
 
-routes.put('/doador/atualiza/:id', DoadorController.atualizaUsuario);
+routes.put('/doador/:id', DoadorController.atualizaUsuario);
 
-routes.delete('/doador/remove/:id', DoadorController.removeUsuario);
+routes.delete('/doador/:id', DoadorController.removeUsuario);
 
 module.exports = routes;
