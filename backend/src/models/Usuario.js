@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const Item = require('../models/Item')
 
 const UsuarioSchema = new Schema({
     id: {
@@ -25,8 +26,7 @@ const UsuarioSchema = new Schema({
         type: Boolean,
     },
     itens: [{
-        type: Schema.Types.ObjectId,   // Chave estrangeira
-        ref: 'Item',
+        
     }],
 }, {
     timestamps: true,

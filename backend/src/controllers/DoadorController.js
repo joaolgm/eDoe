@@ -1,4 +1,5 @@
 const Usuario = require('../models/Usuario');
+const Item = require('../models/Item');
 const Util = require('../Util');
 
 module.exports = {
@@ -29,6 +30,26 @@ module.exports = {
         return res.json(doador);
     },
 
+    async adicionarItem(req, res) {
+
+        const { id, descritor, tags, quantidade, nomeUsuario, idUsuario } = req.body;
+
+        const item = await Item.create({
+            id,
+            descritor,
+            tags,
+            quantidade,
+            nomeUsuario,
+            idUsuario 
+        });
+
+        const usuario = await Usuario.findOne({ id: idUsuario });
+        usuario.itens.push(item);
+        console.log(usuario.itens)
+        usuario.save();
+        return res.json(item);
+    },
+
     async pesquisaUsuarioPorId(req, res) {
         const doc = req.params.id;
 
@@ -42,7 +63,7 @@ module.exports = {
         
         var status = (doadorExiste.doador == true ? "doador" : "receptor");
 
-        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`);
+        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}, itens: ${doadorExiste.itens}`);
        
     },
 
@@ -59,7 +80,7 @@ module.exports = {
 
         var status = (doadorExiste.doador == true ? "doador" : "receptor");
 
-        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`);
+        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}, itens: ${doadorExiste.itens}`);
        
     },
 
@@ -91,5 +112,27 @@ module.exports = {
         } catch (err) {
             return res.status(400).json({ error: `Usuário não encontrado: ${doc}` });
         }
+    },
+
+    async removerItem (req, res) {
+        const { idItem, idUsuario } = req.body;
+        
+        const usuario = await Usuario.findOne({ id : idUsuario });
+        
+        console.log(idItem)
+        console.log(usuario.itens[8].id)
+        
+        var i = 0;
+        while (i <= usuario.itens.lenght) {
+            if (usuario.itens[i].id == idItem) {
+                const a = usuario.itens.splice(i, 1);
+                console.log("ok")
+                break;
+            }
+            i++;
+        }
+
+        return res.send(a);
+
     }
 };

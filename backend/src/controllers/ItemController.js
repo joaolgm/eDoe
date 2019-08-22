@@ -1,21 +1,6 @@
 const Item = require('../models/Item');
 
 module.exports = {
-    async adicionarItem(req, res) {
-
-        const { id, descritor, tags, quantidade, nomeUsuario, idUsuario } = req.body;
-
-        const item = await Item.create({
-            id,
-            descritor,
-            tags,
-            quantidade,
-            nomeUsuario,
-            idUsuario 
-        });
-
-        return res.json(item);
-    },
 
     async listaDescritorDeItensParaDoacao(req, res) {
         var arrayItens = await Item.find();
@@ -39,7 +24,7 @@ module.exports = {
         var stringFinal = '';
 
         function printItens(item) {
-            return `${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, doador: ${item.nomeDoador}/${item.idDoador} | `;
+            return `${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, doador: ${item.nomeUsuario}/${item.idUsuario} | `;
         };
 
         var rounds = arrayItens.length;
@@ -49,5 +34,6 @@ module.exports = {
         
         console.log(stringFinal);
         return res.send(stringFinal);
-    }
+    },
+
 }

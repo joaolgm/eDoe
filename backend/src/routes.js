@@ -11,11 +11,12 @@ routes.get('/item', ItemController.listaDescritorDeItensParaDoacao);
 
 routes.post('/doador', DoadorController.adicionaDoador);
 routes.post('/receptor', ReceptorController.adicionaReceptor);
-routes.post('/item', ItemController.adicionarItem);
+routes.post('/item', DoadorController.adicionarItem);
 
 routes.put('/doador/:id', DoadorController.atualizaUsuario);
 routes.put('/receptor', ReceptorController.atualizaReceptor);
 
 routes.delete('/doador/:id', DoadorController.removeUsuario);
+routes.delete('/doador/', DoadorController.removerItem);
 
 module.exports = routes;
