@@ -7,6 +7,7 @@ const routes = express.Router();
 
 routes.get('/doador/id/:id', DoadorController.pesquisaUsuarioPorId);
 routes.get('/doador/nome/:nome', DoadorController.pesquisaUsuarioPorNome);
+routes.get('/item', ItemController.listaDescritorDeItensParaDoacao);
 
 routes.post('/doador', DoadorController.adicionaDoador);
 routes.post('/receptor', ReceptorController.adicionaReceptor);

@@ -14,6 +14,14 @@ const ItemSchema = new Schema({
         type: Number,
         required: true,
     },
+    nomeUsuario: {
+        type: String,
+        required: true,
+    },
+    idUsuario: {
+        type: Number,
+        required: true,
+    },
 }, {
     timestamps: true,
 });
