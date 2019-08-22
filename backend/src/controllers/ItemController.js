@@ -15,7 +15,6 @@ module.exports = {
             stringFinal = stringFinal + printItens(arrayItens.shift());
         }
         
-        console.log(stringFinal);
         return res.send(stringFinal);
     },
 
@@ -32,7 +31,6 @@ module.exports = {
             stringFinal = stringFinal + printItens(arrayItens.shift());
         }
         
-        console.log(stringFinal);
         return res.send(stringFinal);
     },
 

@@ -30,7 +30,7 @@ module.exports = {
         return res.json(doador);
     },
 
-    async adicionarItem(req, res) {
+    async adicionaItem(req, res) {
 
         const { id, descritor, tags, quantidade, nomeUsuario, idUsuario } = req.body;
 
@@ -45,7 +45,6 @@ module.exports = {
 
         const usuario = await Usuario.findOne({ id: idUsuario });
         usuario.itens.push(item);
-        console.log(usuario.itens)
         usuario.save();
         return res.json(item);
     },
@@ -114,7 +113,7 @@ module.exports = {
         }
     },
 
-    async removerItem (req, res) {
+    async removeItem (req, res) {
         const { idItem, idUsuario } = req.body;
         
         const usuario = await Usuario.findOne({ id : idUsuario });
