@@ -21,6 +21,13 @@ const UsuarioSchema = new Schema({
         type: String,
         required: true,
     },
+    doador: {
+        type: Boolean,
+    },
+    itens: [{
+        type: Schema.Types.ObjectId,   // Chave estrangeira
+        ref: 'Item',
+    }],
 }, {
     timestamps: true,
 });

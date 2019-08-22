@@ -22,7 +22,8 @@ module.exports = {
             nome,
             email,
             celular,
-            classe
+            classe,
+            doador: true
         });
 
         return res.json(doador);
@@ -39,7 +40,7 @@ module.exports = {
             return res.status(400).json({ error: `Usuário não encontrado: ${doc}` });
         }
         
-        var status = (doadorExiste.classe == "pessoa fisica" ? "doador" : "receptor");
+        var status = (doadorExiste.doador == true ? "doador" : "receptor");
 
         return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`);
        
@@ -56,7 +57,7 @@ module.exports = {
             return res.status(400).json({ error: `Usuário não encontrado: ${nome}`});
         }
 
-        var status = (doadorExiste.classe == "pessoa fisica" ? "doador" : "receptor");
+        var status = (doadorExiste.doador == true ? "doador" : "receptor");
 
         return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`);
        

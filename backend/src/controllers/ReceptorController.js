@@ -1,21 +1,54 @@
 const Usuario = require('../models/Usuario');
-const csv = require('csv-parser');
-const fs = require('fs');
+const csv = require('csvtojson');
 
 module.exports = {
     async adicionaReceptor(req, res) {
-        // This line opens the file as a readable stream
-        const readStream = fs.createReadStream(req.body);
+        const csvFilePath = 'src/base.csv';
 
-        // This will wait until we know the readable stream is actually valid before piping
-        readStream.on('open', function () {
-        // This just pipes the read stream to the response object (which goes to the client)
-        readStream.pipe(res);
+        csv().fromFile(csvFilePath).then((json) => {
+            console.log(json);
         });
+        
+        const jsonArray = await csv().fromFile(csvFilePath);
 
-        // This catches any errors that happen while creating the readable stream (usually invalid names)
-        readStream.on('error', function(err) {
-        res.end(err);
+        async function addReceptor(receptor) {
+            await Usuario.create({
+                id: receptor.id,
+                nome: receptor.nome,
+                email: receptor.email,
+                celular: receptor.celular,
+                classe: receptor.classe,
+                doador: false
+            })
+        };
+
+        jsonArray.forEach(addReceptor);
+
+        return res.send(jsonArray);
+    },
+
+    async atualizaReceptor(req, res) {
+        const csvFilePath = 'src/novos.csv';
+
+        csv().fromFile(csvFilePath).then((json) => {
+            console.log(json);
         });
+        
+        const jsonArray = await csv().fromFile(csvFilePath);
+
+        async function attReceptor(receptor) {
+            try {
+                const receptorAtualizado = await Usuario.findOneAndUpdate({ id: receptor.id }, receptor, {
+                    new: true
+                });
+                return res.json(receptorAtualizado);
+            } catch (err) {
+                return res.status(400).json({ error: `Usuário não encontrado: ${receptor.id}` });
+            }
+        }
+
+        jsonArray.forEach(attReceptor);
+
+        return res.send(jsonArray);
     }
 };

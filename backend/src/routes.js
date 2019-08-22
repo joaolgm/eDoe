@@ -13,6 +13,7 @@ routes.post('/receptor', ReceptorController.adicionaReceptor);
 routes.post('/item', ItemController.adicionarItem);
 
 routes.put('/doador/:id', DoadorController.atualizaUsuario);
+routes.put('/receptor', ReceptorController.atualizaReceptor);
 
 routes.delete('/doador/:id', DoadorController.removeUsuario);
 
