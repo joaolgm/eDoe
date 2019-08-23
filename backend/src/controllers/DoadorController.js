@@ -62,7 +62,7 @@ module.exports = {
         
         var status = (doadorExiste.doador == true ? "doador" : "receptor");
 
-        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}, itens: ${doadorExiste.itens}`);
+        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`);
        
     },
 

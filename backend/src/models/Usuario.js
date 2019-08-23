@@ -25,9 +25,7 @@ const UsuarioSchema = new Schema({
     doador: {
         type: Boolean,
     },
-    itens: [{
-        
-    }],
+    itens: [{}],
 }, {
     timestamps: true,
 });
