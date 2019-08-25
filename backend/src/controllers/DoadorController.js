@@ -45,7 +45,7 @@ module.exports = {
 
         const usuario = await Usuario.findOne({ id: idUsuario });
         usuario.itens.push(item);
-        usuario.save();
+        await usuario.save();
         return res.json(item);
     },
 
@@ -118,20 +118,17 @@ module.exports = {
         
         const usuario = await Usuario.findOne({ id : idUsuario });
         
-        console.log(idItem)
-        console.log(usuario.itens[8].id)
-        
-        var i = 0;
-        while (i <= usuario.itens.lenght) {
+        for (let i = 0; i < usuario.itens.length; i++) { // rproblema em diminuir quantidade
             if (usuario.itens[i].id == idItem) {
-                const a = usuario.itens.splice(i, 1);
-                console.log("ok")
+                usuario.itens[i].quantidade > 1 ?  usuario.itens[i].quantidade-- : usuario.itens.splice(i, 1);
+                //usuario.itens.splice(i, 1);
+                //usuario.itens[i].quantidade--
                 break;
             }
-            i++;
         }
 
-        return res.send(a);
+        await usuario.save();
 
+        return res.json(usuario.itens);
     }
 };
