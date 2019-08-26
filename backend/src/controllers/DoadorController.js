@@ -83,18 +83,19 @@ module.exports = {
        
     },
 
-    async atualizaUsuario(req, res) {   //problema para pegar vazio na rota
+    async atualizaUsuario(req, res) {  
         const doc = req.params.id;
 
         Util.checaId(doc, res);
 
-        const update = req.body;
+        const update = Util.usuarioUpdate(req.body);
 
         try {
-            const atualizaDoador = await Usuario.findOneAndUpdate({ id: doc }, update, {
+            const doadorAtualizado = await Usuario.findOneAndUpdate({ id: doc }, update, {
                 new: true
             });
-            return res.json(atualizaDoador);
+            doadorAtualizado.save();
+            return res.json(doadorAtualizado);
         } catch (err) {
             return res.status(400).json({ error: `Usuário não encontrado: ${doc}` });
         }
