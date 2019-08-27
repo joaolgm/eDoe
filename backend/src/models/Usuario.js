@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
-const Item = require('../models/Item')
+const ObjectId = Schema.Types.ObjectId;
+const Item = require('./Item');
 
 const UsuarioSchema = new Schema({
     id: {
@@ -25,7 +26,9 @@ const UsuarioSchema = new Schema({
     doador: {
         type: Boolean,
     },
-    itens: [{}],
+    itens: [{ 
+        type : ObjectId, 
+    }],
 }, {
     timestamps: true,
 });
