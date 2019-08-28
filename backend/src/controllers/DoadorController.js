@@ -15,7 +15,7 @@ module.exports = {
         const doadorExiste = await Usuario.findOne({ id: id });
 
         if(doadorExiste) {
-            return res.json(doadorExiste);
+            return res.send("já existe um usuário com esse id, tente novamente");
         }
 
         const doador = await Usuario.create({
@@ -32,14 +32,13 @@ module.exports = {
 
     async adicionaItem(req, res) {
 
-        const { id, descritor, tags, quantidade, nomeUsuario, idUsuario } = req.body;
+        const { id, descritor, tags, quantidade, idUsuario } = req.body;
 
         const item = await Item.create({
             id,
             descritor,
             tags,
             quantidade,
-            nomeUsuario,
             idUsuario,
             necessario: false
         });
@@ -117,20 +116,23 @@ module.exports = {
 
     async removeItem (req, res) {
         const { idItem, idUsuario } = req.body;
-        
         const usuario = await Usuario.findOne({ id : idUsuario });
         var itemAtual = "";
-        for (let i = 0; i < usuario.itens.length; i++) { // rproblema em diminuir quantidade
+        var itemRemovido = "Item não encontrado";
+
+        for (let i = 0; i < usuario.itens.length; i++) { 
             itemAtual = await Item.findById(usuario.itens[i]);
 
             if (itemAtual.id == idItem) {
-                itemAtual.quantidade > 1 ?  itemAtual.quantidade-- : usuario.itens.splice(i, 1);
+                usuario.itens.splice(i, 1);
+                itemRemovido = itemAtual;
+                await itemAtual.save();
+                await usuario.save();
                 break;
             }
         }
-        await itemAtual.save();
-        await usuario.save();
-
-        return res.json(usuario.itens);
-    }
+        
+        return res.json(itemRemovido);
+    },
+    
 };
