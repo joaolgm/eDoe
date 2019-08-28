@@ -126,12 +126,11 @@ module.exports = {
             if (itemAtual.id == idItem) {
                 usuario.itens.splice(i, 1);
                 itemRemovido = itemAtual;
-                await itemAtual.save();
-                await usuario.save();
                 break;
             }
         }
-        
+        await usuario.save();
+
         return res.json(itemRemovido);
     },
     
