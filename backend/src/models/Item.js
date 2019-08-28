@@ -22,6 +22,7 @@ const ItemSchema = new Schema({
         type: Number,
         required: true,
     },
+    necessario: Boolean,
 }, {
     timestamps: true,
 });

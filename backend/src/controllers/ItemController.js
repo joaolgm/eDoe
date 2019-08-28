@@ -9,10 +9,12 @@ module.exports = {
         function printItens(item) {
             return `${item.quantidade} - ${item.descritor} | `;
         };
-
+        
         var rounds = arrayItens.length;
-        for (let index = 0; index < rounds; index++) {
-            stringFinal = stringFinal + printItens(arrayItens.shift());
+        for (var i = 0; i < rounds; i++) {
+            if(arrayItens[i].necessario == false) {
+                stringFinal = stringFinal + printItens(arrayItens[i]);
+            }
         }
         
         return res.send(stringFinal);
@@ -27,8 +29,10 @@ module.exports = {
         };
 
         var rounds = arrayItens.length;
-        for (let index = 0; index < rounds; index++) {
-            stringFinal = stringFinal + printItens(arrayItens.shift());
+        for (let i = 0; i < rounds; i++) {
+            if(arrayItens[i].necessario == false) {
+                stringFinal = stringFinal + printItens(arrayItens[i]);
+            }
         }
         
         return res.send(stringFinal);

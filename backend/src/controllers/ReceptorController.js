@@ -53,19 +53,27 @@ module.exports = {
     },
 
     async adicionaItemNecessario(req, res) {
-        const item = req.body;
+        const { id, descritor, tags, quantidade, nomeUsuario, idUsuario } = req.body;
 
-        Util.checaId(item.idUsuario, res);
+        const usuario = await Usuario.findOne({ id: idUsuario });
 
-        const usuario = await Usuario.findOne({ id: item.idUsuario });
+        const item = await Item.create({
+            id,
+            descritor,
+            tags,
+            quantidade,
+            nomeUsuario,
+            idUsuario,
+            necessario: true
+        });
 
-        usuario.itens.push(item);
+        usuario.itens.push(await item._id);
         usuario.save();
         return res.json(item);
     },
 
     async atualizaItemNecessario(req, res) {   // não funciona
-        const { tags, quantidade, idItem, idReceptor }  = req.body;
+        const { idItem, idReceptor }  = req.body;
 
         Util.checaId(idReceptor, res);
 
@@ -75,18 +83,22 @@ module.exports = {
             return res.status(400).json({ error: `Usuário não encontrado: ${idReceptor}` });
         }
 
+        const update = Util.itemUpdate(req.body);
+
+        var itemAtual = "";
         var i = 0;
         while (true) {
-            if (receptor.itens[i].id == idItem) {
-                receptor.itens[i].tags = tags;
-                receptor.itens[i].quantidade = quantidade;
+            itemAtual = await Item.findById(receptor.itens[i]);
+            if (itemAtual.id == idItem) {
+                itemAtual.tags = update.tags;
+                itemAtual.quantidade = update.quantidade;
                 break;
             }
             i++;
         }
         
         receptor.save();
-        return res.json(receptor.itens[i]);
+        return res.json(itemAtual);
     },
 
     async removeItemNecessario(req, res) {
@@ -102,7 +114,7 @@ module.exports = {
 
         var i = 0;
         while (true) {
-            if (receptor.itens[i].id == idItem) {
+            if (itemAtual.id == idItem) {
                 receptor.itens.splice(i, 1);
                 break;
             }
@@ -111,5 +123,55 @@ module.exports = {
 
         receptor.save()
         return res.json(receptor.itens);
+    },
+
+    async matching(req, res) {   // calcula pontos e ordena, mas as somas tao erradas
+        const { idReceptor, idItem } = req.body;
+
+        const itemNecessario = await Item.findOne({ id: idItem });
+
+        var itensPossiveis = [];
+        var pontos = [];
+
+        itensPossiveis = [await Item.find({ descritor: itemNecessario.descritor,
+                                              necessario: false })];
+
+        function comparaTags(tagsOriginais, tagsNovas) {
+            var parcial = 0;
+            for (let i = 0; i < tagsOriginais.length; i++) {
+                for (let j = 0; j < tagsNovas.length; j++) {   // j = i+1
+                    if(tagsOriginais[i] == tagsNovas[j]) {
+                        parcial += 5;
+                    }
+                }
+            }
+            return parcial;
+        }
+
+        for (let i = 0; i < itensPossiveis[0].length; i++) {
+            
+            var complete = 0;
+            var parcial = 0;
+            
+            for (let j = 0; j < itensPossiveis[0][i].tags.length; j++) {
+                if(itensPossiveis[0][i].tags[j] == itemNecessario.tags[j]) {
+                    complete++;
+                }                
+            }
+
+            if(complete == itensPossiveis[0][i].tags.length) {
+                pontos[i] = { id: itensPossiveis[0][i].id, pontos: 20+complete*10 }
+            } else {
+                parcial = comparaTags(itemNecessario.tags, itensPossiveis[0][i].tags);
+                pontos[i] = { id: itensPossiveis[0][i].id, pontos: 20+parcial*5 }
+            }
+            
+        }
+
+        pontos.sort(function(a, b) {
+            return b.pontos - a.pontos;
+        });
+
+        return res.send(pontos);
     }
 };

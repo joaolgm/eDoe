@@ -40,7 +40,8 @@ module.exports = {
             tags,
             quantidade,
             nomeUsuario,
-            idUsuario 
+            idUsuario,
+            necessario: false
         });
         
         const usuario = await Usuario.findOne({ id: idUsuario });

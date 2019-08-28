@@ -9,6 +9,7 @@ routes.get('/doador/id/:id', DoadorController.pesquisaUsuarioPorId);
 routes.get('/doador/nome/:nome', DoadorController.pesquisaUsuarioPorNome);
 routes.get('/item-descritores', ItemController.listaDescritorDeItensParaDoacao);
 routes.get('/item', ItemController.listaItensParaDoacao);
+routes.get('/matching', ReceptorController.matching);
 
 routes.post('/doador', DoadorController.adicionaDoador);
 routes.post('/receptor', ReceptorController.adicionaReceptor);

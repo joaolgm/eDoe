@@ -54,5 +54,25 @@ module.exports = {
         };
         
         return update;
+    },
+
+    itemUpdate(objeto) {
+        const update = {};
+
+        if (objeto.tags != "") {
+            Object.defineProperty(update, "tags", {
+                enumerable: true,
+                writable: false,
+                "value" : objeto.tags});
+        };
+
+        if (objeto.quantidade != "") {
+            Object.defineProperty(update, "quantidade", {
+                enumerable: true,
+                writable: false,
+                "value" : objeto.quantidade});
+        };
+        
+        return update;
     }
 };
