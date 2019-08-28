@@ -126,9 +126,12 @@ module.exports = {
             if (itemAtual.id == idItem) {
                 usuario.itens.splice(i, 1);
                 itemRemovido = itemAtual;
+                console.log(itemAtual);
+                await Item.findOneAndDelete({ id: itemAtual.id })
                 break;
             }
         }
+        console.log(itemAtual);
         await usuario.save();
 
         return res.json(itemRemovido);

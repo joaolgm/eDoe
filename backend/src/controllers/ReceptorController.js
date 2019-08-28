@@ -160,10 +160,10 @@ module.exports = {
             }
 
             if(complete == itensPossiveis[0][i].tags.length) {
-                pontos[i] = { id: itensPossiveis[0][i].id, pontos: 20+complete*10 }
+                pontos[i] = { id: itensPossiveis[0][i].id, pontos: 20+complete*10 };
             } else {
                 parcial = comparaTags(itemNecessario.tags, itensPossiveis[0][i].tags);
-                pontos[i] = { id: itensPossiveis[0][i].id, pontos: 20+parcial*5 }
+                pontos[i] = { id: itensPossiveis[0][i].id, pontos: 20+parcial*5 };
             }
             
         }
@@ -172,6 +172,16 @@ module.exports = {
             return b.pontos - a.pontos;
         });
 
-        return res.send(pontos);
+        async function printaNecessarios(obj) {
+            const item = await Item.findOne({ id: obj.id });
+            return ` ${item.id} - ${item.descritor}, tags: [${item.tags}], quantidade: ${item.quantidade}, doador: ${item.idUsuario} |`;
+            
+        }
+
+        var saida = "";
+        for (let i = 0; i < pontos.length; i++) {
+            saida = saida + await printaNecessarios(pontos[i]);
+        }
+        return res.send(saida);
     }
 };

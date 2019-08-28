@@ -25,7 +25,7 @@ module.exports = {
         var stringFinal = '';
 
         function printItens(item) {
-            return `${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, doador: ${item.nomeUsuario}/${item.idUsuario} | `;
+            return `${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, doador: ${item.idUsuario} | `;
         };
 
         var rounds = arrayItens.length;
