@@ -27,11 +27,11 @@ digite `yarn` eDoe para executar a aplicaço
 requisições são feitas em: http://localhost:4444/
 
 <h4>
-  Endpoints
+  <a href="https://documenter.getpostman.com/view/4908896/SVfRsn2M?version=latest&fbclid=IwAR1tJNO4vDDTmAAe3c6LMkTsHYphsdLvD12vG53fn3q2A7Z8tiP8I-klOiY">
+    Endpoints
+  </a>
+  
 </h4>
-
-https://documenter.getpostman.com/view/4908896/SVfRsn2M?version=latest&fbclid=IwAR1tJNO4vDDTmAAe3c6LMkTsHYphsdLvD12vG53fn3q2A7Z8tiP8I-klOiY
-
 
 <h4>
   Arquitetura
