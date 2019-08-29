@@ -133,8 +133,8 @@ module.exports = {
         var itensPossiveis = [];
         var pontos = [];
 
-        itensPossiveis = [await Item.find({ descritor: itemNecessario.descritor,
-                                              necessario: false })];
+        itensPossiveis = await Item.find({ descritor: itemNecessario.descritor,
+                                              necessario: false });
 
         function comparaTags(tagsOriginais, tagsNovas) {
             var parcial = 0;
@@ -148,22 +148,22 @@ module.exports = {
             return parcial;
         }
 
-        for (let i = 0; i < itensPossiveis[0].length; i++) {
+        for (let i = 0; i < itensPossiveis.length; i++) {
             
             var complete = 0;
             var parcial = 0;
             
-            for (let j = 0; j < itensPossiveis[0][i].tags.length; j++) {
-                if(itensPossiveis[0][i].tags[j] == itemNecessario.tags[j]) {
+            for (let j = 0; j < itensPossiveis[i].tags.length; j++) {
+                if(itensPossiveis[i].tags[j] == itemNecessario.tags[j]) {
                     complete++;
                 }                
             }
 
-            if(complete == itensPossiveis[0][i].tags.length) {
-                pontos[i] = { id: itensPossiveis[0][i].id, pontos: 20+complete*10 };
+            if(complete == itensPossiveis[i].tags.length) {
+                pontos[i] = { id: itensPossiveis[i].id, pontos: 20+complete*10 };
             } else {
-                parcial = comparaTags(itemNecessario.tags, itensPossiveis[0][i].tags);
-                pontos[i] = { id: itensPossiveis[0][i].id, pontos: 20+parcial*5 };
+                parcial = comparaTags(itemNecessario.tags, itensPossiveis[i].tags);
+                pontos[i] = { id: itensPossiveis[i].id, pontos: 20+parcial*5 };
             }
             
         }

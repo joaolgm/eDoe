@@ -1,31 +1,21 @@
 const Usuario = require('../models/Usuario');
 const Item = require('../models/Item');
 const Util = require('../Util');
+const DoadorService = require('../services/DoadorService');
 
 module.exports = {
     async adicionaDoador(req, res) {
         const { id, nome, email, celular, classe } = req.body;
 
-        Util.checaId(id, res);
-        Util.checaNome(nome, res);
-        Util.checaEmail(email, res);
-        Util.checaCelular(celular, res);
-        Util.checaClasse(classe, res);
+        Util.usuarioVazio(req.body, res);
 
         const doadorExiste = await Usuario.findOne({ id: id });
 
         if(doadorExiste) {
-            return res.send("já existe um usuário com esse id, tente novamente");
+            return res.json(doadorExiste);
         }
 
-        const doador = await Usuario.create({
-            id,
-            nome,
-            email,
-            celular,
-            classe,
-            doador: true
-        });
+        const doador = await DoadorService.adicionaDoador(id, nome, email,celular, classe);
 
         return res.json(doador);
     },
@@ -52,8 +42,6 @@ module.exports = {
     async pesquisaUsuarioPorId(req, res) {
         const doc = req.params.id;
 
-        Util.checaId(doc, res);
-
         const doadorExiste = await Usuario.findOne({ id: doc });
 
         if(!doadorExiste) {
@@ -69,8 +57,6 @@ module.exports = {
     async pesquisaUsuarioPorNome(req, res) {
         const nome = req.params.nome;
 
-        Util.checaNome(nome, res);
-
         const doadorExiste = await Usuario.findOne({ nome: nome });
 
         if(!doadorExiste) {
@@ -83,28 +69,16 @@ module.exports = {
        
     },
 
-    async atualizaUsuario(req, res) {  
+    async atualizaDoador(req, res) {  
         const doc = req.params.id;
-
-        Util.checaId(doc, res);
 
         const update = Util.usuarioUpdate(req.body);
 
-        try {
-            const doadorAtualizado = await Usuario.findOneAndUpdate({ id: doc }, update, {
-                new: true
-            });
-            doadorAtualizado.save();
-            return res.json(doadorAtualizado);
-        } catch (err) {
-            return res.status(400).json({ error: `Usuário não encontrado: ${doc}` });
-        }
+        return res.json(await DoadorService.atualizaDoador(doc, update));
     },
 
     async removeUsuario(req, res) {   //problema para pegar vazio na rota
         const doc = req.params.id;
-
-        Util.checaId(doc, res);
 
         try {
             const removeUsuario = await Usuario.findOneAndDelete({ id: doc });
