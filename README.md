@@ -22,7 +22,7 @@ clone o projeto: `git clone https://github.com/joaolgm/eDoe.git`
 
 Abra o projeto em alguma IDE
 
-digite `yarn` eDoe para executar a aplicaço
+digite `yarn eDoe` para executar a aplicaço
 
 requisições são feitas em: http://localhost:4444/
 
