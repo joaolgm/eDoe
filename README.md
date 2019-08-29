@@ -16,21 +16,15 @@
   Instalação/Execução
 </h4>
 
-<p>
-  clone o projeto: git clone https://github.com/joaolgm/eDoe.git
-</p>
+Instale o MongoDB
 
-<p>
-  Abra o projeto em alguma IDE
-</p>
+clone o projeto: `git clone https://github.com/joaolgm/eDoe.git`
 
-<p>
-  digite yarn eDoe para executar a aplicaço
-</p>
+Abra o projeto em alguma IDE
 
-<p>
-  requisições são feitas em: http://localhost:4444/
-</p>
+digite `yarn` eDoe para executar a aplicaço
+
+requisições são feitas em: http://localhost:4444/
 
 <h4>
   Endpoints
