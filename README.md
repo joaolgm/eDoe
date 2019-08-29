@@ -1,6 +1,6 @@
-<p align="center">
+<h3 align="center">
   Projeto de Desenvolvimento de Aplicações Corporativas Avançadas - eDoe.com
-</p>
+</h3>
 
 <p align="center">
   <img src="https://lh3.googleusercontent.com/CialLrx1z-gxQBFmWHV_Bz-qy35TFjYHm7SC34IulYqkUQDmRc6glIpNHstyYu0C61-D-ILjk1VppH3Q54Ws54fmdo4fEl7gK24lMd_dx1J40JZjBM75Yh1Ru30SXksJPB2GgbAa" width="500" height="300">
@@ -37,3 +37,12 @@
 </h4>
 
 https://documenter.getpostman.com/view/4908896/SVfRsn2M?version=latest&fbclid=IwAR1tJNO4vDDTmAAe3c6LMkTsHYphsdLvD12vG53fn3q2A7Z8tiP8I-klOiY
+
+
+<h4>
+  Arquitetura
+</h4>
+
+<p align="center">
+  <img src="https://github.com/joaolgm/eDoe/blob/master/diagrama.png?raw=true" width="550" height="650">
+</p>
