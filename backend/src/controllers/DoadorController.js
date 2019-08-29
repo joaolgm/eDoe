@@ -76,10 +76,10 @@ module.exports = {
         usuario = await Usuario.findOne({ id: idUsuario });
         
         for (let i = 0; i < usuario.itens.length; i++) {
-            itemAtual = await Item.findById(usuario.itens[i]);
+            item = await Item.findById(usuario.itens[i]);
             
-            if (itemAtual.id == idItem) {
-                return res.json(itemAtual);
+            if (item.id == idItem) {
+                return res.send(`${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, doador: ${item.idUsuario}`);
             }
         }
         
@@ -94,7 +94,7 @@ module.exports = {
         return res.json(await DoadorService.atualizaDoador(doc, update));
     },
 
-    async removeUsuario(req, res) {   //problema para pegar vazio na rota
+    async removeUsuario(req, res) { 
         const doc = req.params.id;
 
         try {
@@ -117,12 +117,11 @@ module.exports = {
             if (itemAtual.id == idItem) {
                 usuario.itens.splice(i, 1);
                 itemRemovido = itemAtual;
-                console.log(itemAtual);
                 await Item.findOneAndDelete({ id: itemAtual.id })
                 break;
             }
         }
-        console.log(itemAtual);
+    
         await usuario.save();
 
         return res.json(itemRemovido);
