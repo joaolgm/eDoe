@@ -1,5 +1,3 @@
-const Usuario = require('../models/Usuario');
-const Item = require('../models/Item');
 const Util = require('../Util');
 const DoadorService = require('../services/DoadorService');
 
@@ -7,83 +5,33 @@ module.exports = {
     async adicionaDoador(req, res) {
         const { id, nome, email, celular, classe } = req.body;
 
-        Util.usuarioVazio(req.body, res);
+        Util.usuarioVazio(req.body, res); 
 
-        const doadorExiste = await Usuario.findOne({ id: id });
-
-        if(doadorExiste) {
-            return res.json(doadorExiste);
-        }
-
-        const doador = await DoadorService.adicionaDoador(id, nome, email,celular, classe);
-
-        return res.json(doador);
+        return res.json(await DoadorService.adicionaDoador(id, nome, email,celular, classe));
     },
 
     async adicionaItem(req, res) {
-
         const { id, descritor, tags, quantidade, idUsuario } = req.body;
-
-        const item = await Item.create({
-            id,
-            descritor,
-            tags,
-            quantidade,
-            idUsuario,
-            necessario: false
-        });
         
-        const usuario = await Usuario.findOne({ id: idUsuario });
-        usuario.itens.push(await item._id);
-        usuario.save();
-        const item2 = await Item.findById(usuario.itens[usuario.itens.length-1]);
-        return res.json(item2);
+        return res.json(await DoadorService.adicionaItem(id, descritor, tags, quantidade, idUsuario));
     },
 
     async pesquisaUsuarioPorId(req, res) {
         const doc = req.params.id;
 
-        const doadorExiste = await Usuario.findOne({ id: doc });
-
-        if(!doadorExiste) {
-            return res.status(400).json({ error: `Usuário não encontrado: ${doc}` });
-        }
-        
-        var status = (doadorExiste.doador == true ? "doador" : "receptor");
-
-        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`);
-       
+        return res.send(await DoadorService.pesquisaUsuarioPorId(doc));
     },
 
     async pesquisaUsuarioPorNome(req, res) {
         const nome = req.params.nome;
 
-        const doadorExiste = await Usuario.findOne({ nome: nome });
-
-        if(!doadorExiste) {
-            return res.status(400).json({ error: `Usuário não encontrado: ${nome}`});
-        }
-
-        var status = (doadorExiste.doador == true ? "doador" : "receptor");
-
-        return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}, itens: ${doadorExiste.itens}`);
-       
+        return res.send(await DoadorService.pesquisaUsuarioPorNome(nome));
     },
 
     async exibeItem(req, res) {
         const {idItem, idUsuario} = req.body;
 
-        usuario = await Usuario.findOne({ id: idUsuario });
-        
-        for (let i = 0; i < usuario.itens.length; i++) {
-            item = await Item.findById(usuario.itens[i]);
-            
-            if (item.id == idItem) {
-                return res.send(`${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, doador: ${item.idUsuario}`);
-            }
-        }
-        
-        return res.status(400).json({ error: `Item não encontrado: ${idItem}` });
+        return res.send(await DoadorService.exibeItem(idItem, idUsuario));
     },
 
     async atualizaDoador(req, res) {  
@@ -97,34 +45,12 @@ module.exports = {
     async removeUsuario(req, res) { 
         const doc = req.params.id;
 
-        try {
-            const removeUsuario = await Usuario.findOneAndDelete({ id: doc });
-            return res.json(removeUsuario);
-        } catch (err) {
-            return res.status(400).json({ error: `Usuário não encontrado: ${doc}` });
-        }
+        return res.json(await DoadorService.removeUsuario(doc));
     },
 
     async removeItem (req, res) {
         const { idItem, idUsuario } = req.body;
-        const usuario = await Usuario.findOne({ id : idUsuario });
-        var itemAtual = "";
-        var itemRemovido = "Item não encontrado";
-
-        for (let i = 0; i < usuario.itens.length; i++) { 
-            itemAtual = await Item.findById(usuario.itens[i]);
-
-            if (itemAtual.id == idItem) {
-                usuario.itens.splice(i, 1);
-                itemRemovido = itemAtual;
-                await Item.findOneAndDelete({ id: itemAtual.id })
-                break;
-            }
-        }
-    
-        await usuario.save();
-
-        return res.json(itemRemovido);
-    },
-    
+        
+        return res.json(await DoadorService.removeItem(idItem, idUsuario));
+    }
 };
