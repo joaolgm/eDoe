@@ -6,7 +6,7 @@ module.exports = {
         const doadorExiste = await Usuario.findOne({ id: id });
 
         if(doadorExiste) {
-            return res.json(doadorExiste);
+            return doadorExiste;
         }
         const doador = await Usuario.create({
             id,
