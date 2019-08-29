@@ -8,5 +8,27 @@
 
   Muitas pessoas tem interesse em fazer doações, mas as vezes não tem o tempo necessário para encontrar onde doar ou como doar. Como sabemos, vivemos em um país em que a desigualdade social ainda existe e por isso há várias pessoas necessitadas, às vezes grupos de pessoas com um problema em comum. Precisamos de um sistema para apoiar essa rede de doações: o eDoe.com
 
+<h4>
+  <a href="https://docs.google.com/document/d/e/2PACX-1vST2TI5lDbtMlv8rhFYJkYnrfgqzyWDv6DDvvAajz3_KK4tAs_UnAbYdI6oeMQA6jEHo5HwUAatHmd8/pub">eDoe Documentação</a>
+</h4>
 
-<a href="https://docs.google.com/document/d/e/2PACX-1vST2TI5lDbtMlv8rhFYJkYnrfgqzyWDv6DDvvAajz3_KK4tAs_UnAbYdI6oeMQA6jEHo5HwUAatHmd8/pub">eDoe</a>
+<h4>
+  Instalação/Execução
+</h4>
+
+<p>
+  clone o projeto: git clone https://github.com/joaolgm/eDoe.git
+</p>
+
+<p>
+  Abra o projeto em alguma IDE
+</p>
+
+<p>
+  O sistema é executado em: http://localhost:4444/
+</p>
+
+<h4>
+  <a href="https://docs.google.com/document/d/e/2PACX-1vST2TI5lDbtMlv8rhFYJkYnrfgqzyWDv6DDvvAajz3_KK4tAs_UnAbYdI6oeMQA6jEHo5HwUAatHmd8/pub">Endpoints</a>
+</h4>
+
