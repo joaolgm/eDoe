@@ -9,8 +9,9 @@ const routes = express.Router();
 routes.get('/usuario/id/:id', DoadorController.pesquisaUsuarioPorId);
 routes.get('/usuario/nome/:nome', DoadorController.pesquisaUsuarioPorNome);
 routes.get('/item-descritores', ItemController.listaDescritorDeItensParaDoacao);
-routes.get('/item', ItemController.listaItensParaDoacao);
+routes.get('/itens', ItemController.listaItensParaDoacao);
 routes.get('/doacao', DoaController.historicoDoacao);
+routes.get('/item', DoadorController.exibeItem);
 
 routes.post('/doador', DoadorController.adicionaDoador);
 routes.post('/receptor', ReceptorController.adicionaReceptor);

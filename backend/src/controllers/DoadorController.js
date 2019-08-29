@@ -36,7 +36,8 @@ module.exports = {
         const usuario = await Usuario.findOne({ id: idUsuario });
         usuario.itens.push(await item._id);
         usuario.save();
-        return res.json(item);
+        const item2 = await Item.findById(usuario.itens[usuario.itens.length-1]);
+        return res.json(item2);
     },
 
     async pesquisaUsuarioPorId(req, res) {
@@ -67,6 +68,22 @@ module.exports = {
 
         return res.send(`${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}, itens: ${doadorExiste.itens}`);
        
+    },
+
+    async exibeItem(req, res) {
+        const {idItem, idUsuario} = req.body;
+
+        usuario = await Usuario.findOne({ id: idUsuario });
+        
+        for (let i = 0; i < usuario.itens.length; i++) {
+            itemAtual = await Item.findById(usuario.itens[i]);
+            
+            if (itemAtual.id == idItem) {
+                return res.json(itemAtual);
+            }
+        }
+        
+        return res.status(400).json({ error: `Item não encontrado: ${idItem}` });
     },
 
     async atualizaDoador(req, res) {  
