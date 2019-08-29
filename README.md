@@ -25,10 +25,15 @@
 </p>
 
 <p>
-  O sistema é executado em: http://localhost:4444/
+  digite yarn eDoe para executar a aplicaço
+</p>
+
+<p>
+  requisições são feitas em: http://localhost:4444/
 </p>
 
 <h4>
-  <a href="https://docs.google.com/document/d/e/2PACX-1vST2TI5lDbtMlv8rhFYJkYnrfgqzyWDv6DDvvAajz3_KK4tAs_UnAbYdI6oeMQA6jEHo5HwUAatHmd8/pub">Endpoints</a>
+  Endpoints
 </h4>
 
+https://documenter.getpostman.com/view/4908896/SVfRsn2M?version=latest&fbclid=IwAR1tJNO4vDDTmAAe3c6LMkTsHYphsdLvD12vG53fn3q2A7Z8tiP8I-klOiY
