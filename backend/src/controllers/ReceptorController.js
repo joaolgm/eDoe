@@ -1,4 +1,5 @@
 const ReceptorService = require('../services/ReceptorService');
+const Util = require('../Util');
 
 module.exports = {
     async adicionaReceptor(req, res) {
@@ -14,15 +15,17 @@ module.exports = {
     },
 
     async adicionaItemNecessario(req, res) {
-        const { id, descritor, tags, quantidade, nomeUsuario, idUsuario } = req.body;
+        const { id, descritor, tags, quantidade, idUsuario } = req.body;
 
-        return res.json(await ReceptorService.adicionaItemNecessario(id, descritor, tags, quantidade, nomeUsuario, idUsuario));
+        return res.json(await ReceptorService.adicionaItemNecessario(id, descritor, tags, quantidade, idUsuario));
     },
 
     async atualizaItemNecessario(req, res) {   // não funciona
         const { idItem, idReceptor }  = req.body;
 
-        return res.json(await ReceptorService.atualizaItemNecessario(idItem, idReceptor).itens);
+        const update = Util.itemUpdate(req.body);
+
+        return res.json(await ReceptorService.atualizaItemNecessario(idItem, idReceptor, update).itens);
     },
 
     async removeItemNecessario(req, res) {

@@ -1,8 +1,14 @@
 const Doa = require('../models/Doa');
 const Item = require('../models/Item');
+const Usuario = require('../models/Usuario');
 
 module.exports = {
-    async realizaDoacao(itemNec, itemDoador, receptor, doador, data) {
+    async realizaDoacao(idItemNec, idItemDoador, data) {
+        const itemNec = await Item.findOne({ id: idItemNec });
+        const itemDoador = await Item.findOne({ id: idItemDoador });
+        const receptor = await Usuario.findOne({ id: itemNec.idUsuario });
+        const doador = await Usuario.findOne({ id: itemDoador.idUsuario });
+
         let saida = "";
         if(itemDoador.quantidade > itemNec.quantidade) {
             saida = saida + `${data} - doador: ${doador.nome}/${doador.id}, item: ${itemDoador.descritor}, quantidade: ${itemNec.quantidade}, receptor: ${receptor.nome}/${receptor.id}`;

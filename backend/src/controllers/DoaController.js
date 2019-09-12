@@ -1,6 +1,5 @@
 const DoaService = require('../services/DoaService');
 const Item = require('../models/Item');
-const Usuario = require('../models/Usuario');
 
 module.exports = {
 
@@ -9,11 +8,9 @@ module.exports = {
 
         const itemNec = await Item.findOne({ id: idItemNec });
         const itemDoador = await Item.findOne({ id: idItemDoador });
-        const receptor = await Usuario.findOne({ id: itemNec.idUsuario });
-        const doador = await Usuario.findOne({ id: itemDoador.idUsuario });
 
         if(itemNec.descritor == itemDoador.descritor) {
-            const doacao = await DoaService.realizaDoacao(itemNec, itemDoador, receptor, doador, data);
+            const doacao = await DoaService.realizaDoacao(idItemNec, idItemDoador, data);
 
             return res.send(doacao);
         }

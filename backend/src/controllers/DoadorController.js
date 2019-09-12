@@ -22,12 +22,6 @@ module.exports = {
         return res.send(await DoadorService.pesquisaUsuarioPorId(doc));
     },
 
-    async pesquisaUsuarioPorNome(req, res) {
-        const nome = req.params.nome;
-
-        return res.send(await DoadorService.pesquisaUsuarioPorNome(nome));
-    },
-
     async exibeItem(req, res) {
         const {idItem, idUsuario} = req.body;
 

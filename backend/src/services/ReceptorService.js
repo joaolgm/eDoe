@@ -1,6 +1,5 @@
 const Usuario = require('../models/Usuario');
 const Item = require('../models/Item');
-const Util = require('../Util');
 const csv = require('csvtojson');
 
 module.exports = {
@@ -48,7 +47,7 @@ module.exports = {
         return jsonArray;
     },
 
-    async adicionaItemNecessario(id, descritor, tags, quantidade, nomeUsuario, idUsuario) {
+    async adicionaItemNecessario(id, descritor, tags, quantidade, idUsuario) {
         const usuario = await Usuario.findOne({ id: idUsuario });
 
         const item = await Item.create({
@@ -56,7 +55,6 @@ module.exports = {
             descritor,
             tags,
             quantidade,
-            nomeUsuario,
             idUsuario,
             necessario: true
         });
@@ -67,14 +65,12 @@ module.exports = {
         return item;
     },
 
-    async atualizaItemNecessario(idItem, idReceptor) {
+    async atualizaItemNecessario(idItem, idReceptor, update) {
         const receptor = await Usuario.findOne({ id: idReceptor });
         
         if(!receptor) {
             return `Usuário não encontrado: ${idReceptor}`;
         }
-
-        const update = Util.itemUpdate(req.body);
 
         var itemAtual = "";
         var i = 0;

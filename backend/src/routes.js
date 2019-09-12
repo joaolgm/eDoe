@@ -6,8 +6,7 @@ const DoaController = require('./controllers/DoaController');
 
 const routes = express.Router();
 
-routes.get('/usuario/id/:id', DoadorController.pesquisaUsuarioPorId);
-routes.get('/usuario/nome/:nome', DoadorController.pesquisaUsuarioPorNome);
+routes.get('/usuario/:id', DoadorController.pesquisaUsuarioPorId);
 routes.get('/item-descritores', ItemController.listaDescritorDeItensParaDoacao);
 routes.get('/itens', ItemController.listaItensParaDoacao);
 routes.get('/doacoes', DoaController.historicoDoacao);

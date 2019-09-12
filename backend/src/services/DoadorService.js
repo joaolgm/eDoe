@@ -48,25 +48,13 @@ module.exports = {
         return `${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`;
     },
 
-    async pesquisaUsuarioPorNome(nome) {
-        const doadorExiste = await Usuario.findOne({ nome: nome });
-
-        if(!doadorExiste) {
-            return `Usuário não encontrado: ${nome}`;
-        }
-
-        var status = (doadorExiste.doador == true ? "doador" : "receptor");
-
-        return `${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}, itens: ${doadorExiste.itens}`;
-    },
-
     async exibeItem(idItem, idUsuario) {
         const usuario = await Usuario.findOne({ id: idUsuario });
-        
+        var status = (usuario.doador == true ? "doador" : "receptor");
         for (let i = 0; i < usuario.itens.length; i++) {
             item = await Item.findById(usuario.itens[i]);
             if (item.id == idItem) {
-                return `${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, doador: ${item.idUsuario}`;
+                return `${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, ${status}: ${item.idUsuario}`;
             }
         }
         
