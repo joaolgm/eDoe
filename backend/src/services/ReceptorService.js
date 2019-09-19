@@ -4,8 +4,6 @@ const csv = require('csvtojson');
 
 module.exports = {
     async adicionaReceptor(csvFilePath) {
-        const jsonArray = await csv().fromFile(csvFilePath);
-
         async function addReceptor(receptor) {
             const receptorExiste = await Usuario.findOne({ id: receptor.id });
 
@@ -13,15 +11,19 @@ module.exports = {
                 return
             }
 
-            await Usuario.create({
+            const recep = await Usuario.create({
                 id: receptor.id,
                 nome: receptor.nome,
                 email: receptor.email,
+                senha: receptor.senha,
                 celular: receptor.celular,
                 classe: receptor.classe,
                 doador: false
             })
+            recep.senha = undefined;
         };
+
+        const jsonArray = await csv().fromFile(csvFilePath);
 
         jsonArray.forEach(addReceptor);
         

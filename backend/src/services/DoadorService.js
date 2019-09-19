@@ -2,7 +2,7 @@ const Usuario = require('../models/Usuario');
 const Item = require('../models/Item');
 
 module.exports = {
-    async adicionaDoador(id, nome, email,celular, classe) {
+    async adicionaDoador(id, nome, email, senha, celular, classe) {
         const doadorExiste = await Usuario.findOne({ id: id });
 
         if(doadorExiste) {
@@ -12,11 +12,13 @@ module.exports = {
             id,
             nome,
             email,
+            senha,
             celular,
             classe,
             doador: true
         });
-
+        doador.senha = undefined;
+        
         return doador;
     },
 

@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
+const bcrypt = require('bcryptjs');
 const ObjectId = Schema.Types.ObjectId;
-const Item = require('./Item');
 
 const UsuarioSchema = new Schema({
     id: {
@@ -14,6 +14,11 @@ const UsuarioSchema = new Schema({
     email: {
         type: String,
         required: true,
+    },
+    senha: {
+        type: String,
+        required: true,
+        select: false,
     },
     celular: {
         type: String,
@@ -31,6 +36,13 @@ const UsuarioSchema = new Schema({
     }],
 }, {
     timestamps: true,
+});
+
+UsuarioSchema.pre('save', async function(next) {
+    const hash = await bcrypt.hash(this.senha, 10);
+    this.senha = hash;
+
+    next();
 });
 
 module.exports = model('Usuario', UsuarioSchema);
