@@ -40,3 +40,9 @@ requisições são feitas em: http://localhost:4444/
 <p align="center">
   <img src="https://github.com/joaolgm/eDoe/blob/master/diagrama.png?raw=true" width="550" height="650">
 </p>
+
+<h4>
+  Persistência
+</h4>
+
+Para a persistência de dados, usamos o MongoDB, um banco de dados não relacional de alto desempenho para que possamos atender volumes absurdos de requisições.
