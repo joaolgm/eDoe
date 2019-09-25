@@ -1,6 +1,9 @@
 const Usuario = require('../models/Usuario');
 const Item = require('../models/Item');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const authConfig = require('../config/auth')
 
 module.exports = {
     async adicionaDoador(id, nome, email, senha, celular, classe) {
@@ -23,7 +26,13 @@ module.exports = {
         return doador;
     },
 
-    async autenticaDoador(email, senha) {
+    geraToken(params = {}) {
+        return jwt.sign(params, authConfig.secret, {
+            expiresIn: 86400,
+        });
+    },
+
+    async loginDoador(email, senha) {
         const doador = await Usuario.findOne({ email: email }).select('+senha');
 
         if(!doador) {
@@ -34,7 +43,12 @@ module.exports = {
             return `Senha inválida`;
         }
 
-        return doador;
+        doador.senha = undefined;
+
+        return {
+            doador, 
+            token: this.geraToken({ id: doador.id })
+        };
     },
 
     async adicionaItem(id, descritor, tags, quantidade, idUsuario) {

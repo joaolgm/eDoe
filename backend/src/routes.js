@@ -1,10 +1,13 @@
 const express = require('express');
+const authMiddleware = require('./middlewares/auth');
 const DoadorController = require('./controllers/DoadorController');
 const ReceptorController = require('./controllers/ReceptorController');
 const ItemController = require('./controllers/ItemController');
 const DoaController = require('./controllers/DoaController');
 
 const routes = express.Router();
+
+//routes.use(authMiddleware);
 
 routes.get('/usuario/:id', DoadorController.pesquisaUsuarioPorId);
 routes.get('/item-descritores', ItemController.listaDescritorDeItensParaDoacao);
@@ -14,10 +17,10 @@ routes.get('/item', DoadorController.exibeItem);
 
 routes.post('/doador', DoadorController.adicionaDoador);
 routes.post('/receptor', ReceptorController.adicionaReceptor);
-routes.post('/item', DoadorController.adicionaItem);
+routes.post('/item', authMiddleware,DoadorController.adicionaItem);
 routes.post('/item-necessario', ReceptorController.adicionaItemNecessario);
 routes.post('/matching', ReceptorController.matching);
-routes.post('/autentica', DoadorController.autenticaDoador);
+routes.post('/login', DoadorController.loginDoador);
 
 routes.put('/doador/:id', DoadorController.atualizaDoador);
 routes.put('/receptor', ReceptorController.atualizaReceptor);

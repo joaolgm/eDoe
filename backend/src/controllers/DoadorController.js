@@ -10,10 +10,10 @@ module.exports = {
         return res.json(await DoadorService.adicionaDoador(id, nome, email, senha, celular, classe));
     },
 
-    async autenticaDoador(req, res) {
+    async loginDoador(req, res) {
         const { email, senha } = req.body;
 
-        return res.json(await DoadorService.autenticaDoador(email, senha)); 
+        return res.json(await DoadorService.loginDoador(email, senha)); 
     },
 
     async adicionaItem(req, res) {
