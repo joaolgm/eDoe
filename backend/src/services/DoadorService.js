@@ -1,5 +1,6 @@
 const Usuario = require('../models/Usuario');
 const Item = require('../models/Item');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
     async adicionaDoador(id, nome, email, senha, celular, classe) {
@@ -19,6 +20,20 @@ module.exports = {
         });
         doador.senha = undefined;
         
+        return doador;
+    },
+
+    async autenticaDoador(email, senha) {
+        const doador = await Usuario.findOne({ email: email }).select('+senha');
+
+        if(!doador) {
+            return `Email não cadastrado: ${email}`;
+        }
+
+        if(!await bcrypt.compare(senha, doador.senha)) {
+            return `Senha inválida`;
+        }
+
         return doador;
     },
 

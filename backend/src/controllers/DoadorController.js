@@ -10,6 +10,12 @@ module.exports = {
         return res.json(await DoadorService.adicionaDoador(id, nome, email, senha, celular, classe));
     },
 
+    async autenticaDoador(req, res) {
+        const { email, senha } = req.body;
+
+        return res.json(await DoadorService.autenticaDoador(email, senha)); 
+    },
+
     async adicionaItem(req, res) {
         const { id, descritor, tags, quantidade, idUsuario } = req.body;
         

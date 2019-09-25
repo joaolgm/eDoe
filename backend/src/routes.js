@@ -17,6 +17,7 @@ routes.post('/receptor', ReceptorController.adicionaReceptor);
 routes.post('/item', DoadorController.adicionaItem);
 routes.post('/item-necessario', ReceptorController.adicionaItemNecessario);
 routes.post('/matching', ReceptorController.matching);
+routes.post('/autentica', DoadorController.autenticaDoador);
 
 routes.put('/doador/:id', DoadorController.atualizaDoador);
 routes.put('/receptor', ReceptorController.atualizaReceptor);
