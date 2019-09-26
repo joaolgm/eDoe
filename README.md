@@ -38,7 +38,7 @@ requisições são feitas em: http://localhost:4444/
 </h4>
 
 <p align="center">
-  <img src="https://github.com/joaolgm/eDoe/blob/master/diagrama.png?raw=true" width="550" height="650">
+  <img src="https://raw.githubusercontent.com/joaolgm/eDoe/master/eDoe.png">
 </p>
 
 <h4>
