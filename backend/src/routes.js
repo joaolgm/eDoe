@@ -9,26 +9,26 @@ const routes = express.Router();
 
 //routes.use(authMiddleware);
 
-routes.get('/usuario', DoadorController.pesquisaUsuarioPorId);
-routes.get('/item-descritores', ItemController.listaDescritorDeItensParaDoacao);
-routes.get('/itens', ItemController.listaItensParaDoacao);
-routes.get('/doacoes', DoaController.historicoDoacao);
-routes.get('/item', DoadorController.exibeItem);
+routes.get('/usuario', DoadorController.pesquisaUsuarioPorId);   //NoToken
+routes.get('/item-descritores', ItemController.listaDescritorDeItensParaDoacao);   //NoToken
+routes.get('/itens', ItemController.listaItensParaDoacao);   //NoToken
+routes.get('/doacoes', DoaController.historicoDoacao);   //NoToken
+routes.get('/item', authMiddleware, DoadorController.exibeItem);
 
-routes.post('/doador', DoadorController.adicionaDoador);
-routes.post('/receptor', ReceptorController.adicionaReceptor);
+routes.post('/doador', authMiddleware, DoadorController.adicionaDoador);
+routes.post('/receptor', ReceptorController.adicionaReceptor);   //NoToken
 routes.post('/item', authMiddleware,DoadorController.adicionaItem);
-routes.post('/item-necessario', ReceptorController.adicionaItemNecessario);
-routes.post('/matching', ReceptorController.matching);
-routes.post('/login', DoadorController.loginDoador);
+routes.post('/item-necessario', ReceptorController.adicionaItemNecessario);   //NoToken
+routes.post('/matching', authMiddleware, ReceptorController.matching);
+routes.post('/login', DoadorController.loginDoador);   //NoToken
 
-routes.put('/doador', DoadorController.atualizaDoador);
-routes.put('/receptor', ReceptorController.atualizaReceptor);
-routes.put('/item-necessario', ReceptorController.atualizaItemNecessario);
+routes.put('/doador', authMiddleware, DoadorController.atualizaDoador);
+routes.put('/receptor', ReceptorController.atualizaReceptor);   //NoToken
+routes.put('/item-necessario', authMiddleware, ReceptorController.atualizaItemNecessario);
 
-routes.delete('/usuario', DoadorController.removeUsuario);
-routes.delete('/item', DoadorController.removeItem);
-routes.delete('/item-necessario', ReceptorController.removeItemNecessario);
-routes.delete('/doacao', DoaController.realizaDoacao);
+routes.delete('/usuario', authMiddleware, DoadorController.removeUsuario);
+routes.delete('/item', authMiddleware, DoadorController.removeItem);
+routes.delete('/item-necessario', authMiddleware, ReceptorController.removeItemNecessario);
+routes.delete('/doacao', authMiddleware, DoaController.realizaDoacao);
 
 module.exports = routes;

@@ -1,5 +1,4 @@
 const Util = require('../Util');
-const Usuario = require('../models/Usuario');
 const DoadorService = require('../services/DoadorService');
 
 module.exports = {
@@ -35,18 +34,16 @@ module.exports = {
         return res.send(await DoadorService.exibeItem(idItem, idUsuario));
     },
 
-    async atualizaDoador(req, res) {  //problema
+    async atualizaDoador(req, res) {  
         const doc = req.query.id;
-        console.log(req.body);
         const update = Util.usuarioUpdate(req.body);
 
         return res.json(await DoadorService.atualizaDoador(doc, update));
     },
 
-    async removeUsuario(req, res) {  //problema
+    async removeUsuario(req, res) {  
         const doc = req.query.id;
-        const removeUsuario = await Usuario.findOne({ id: doc });
-        console.log(removeUsuario);
+
         return res.json(await DoadorService.removeUsuario(doc));
     },
 

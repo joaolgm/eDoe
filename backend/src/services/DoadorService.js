@@ -1,6 +1,5 @@
 const Usuario = require('../models/Usuario');
 const Item = require('../models/Item');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const authConfig = require('../config/auth')
@@ -39,7 +38,7 @@ module.exports = {
             return `Email não cadastrado: ${email}`;
         }
 
-        if(!await bcrypt.compare(senha, doador.senha)) {
+        if(senha != doador.senha) {
             return `Senha inválida`;
         }
 
@@ -71,25 +70,22 @@ module.exports = {
         const doadorExiste = await Usuario.findOne({ id: doc });
 
         if(!doadorExiste) {
-            return `Usuário não encontrado: ${doc}`;
+            return { error: `Usuário não encontrado: ${doc}` };
         }
-        
-        var status = (doadorExiste.doador == true ? "doador" : "receptor");
 
-        return `${doadorExiste.nome}/${doadorExiste.id}, ${doadorExiste.email}, ${doadorExiste.celular}, status: {${status}}`;
+        return doadorExiste;
     },
 
     async exibeItem(idItem, idUsuario) {
         const usuario = await Usuario.findOne({ id: idUsuario });
-        var status = (usuario.doador == true ? "doador" : "receptor");
         for (let i = 0; i < usuario.itens.length; i++) {
-            item = await Item.findById(usuario.itens[i]);
+            const item = await Item.findById(usuario.itens[i]);
             if (item.id == idItem) {
-                return `${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, ${status}: ${item.idUsuario}`;
+                return item;
             }
         }
         
-        return `Item não encontrado: ${idItem}`;
+        return { error: `Item não encontrado: ${idItem}` };
     },
 
     async atualizaDoador(doc, update) {
@@ -102,7 +98,6 @@ module.exports = {
 
     async removeUsuario(doc) {
         const removeUsuario = await Usuario.findOneAndDelete({ id: doc });
-        console.log(removeUsuario);
         await removeUsuario.save();
         return removeUsuario;
     },
@@ -110,7 +105,7 @@ module.exports = {
     async removeItem(idItem, idUsuario) {
         const usuario = await Usuario.findOne({ id : idUsuario });
         var itemAtual = "";
-        var itemRemovido = "Item não encontrado";
+        var itemRemovido = { error: "Item não encontrado" };
 
         for (let i = 0; i < usuario.itens.length; i++) { 
             itemAtual = await Item.findById(usuario.itens[i]);
