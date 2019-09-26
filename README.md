@@ -22,7 +22,7 @@ clone o projeto: `git clone https://github.com/joaolgm/eDoe.git`
 
 Abra o projeto em alguma IDE
 
-digite `yarn eDoe` para executar a aplicaço
+digite `yarn eDoe` para executar a aplicação
 
 requisições são feitas em: http://localhost:4444/
 
@@ -46,3 +46,9 @@ requisições são feitas em: http://localhost:4444/
 </h4>
 
 Para a persistência de dados, usamos o MongoDB, um banco de dados não relacional de alto desempenho para que possamos atender volumes absurdos de requisições.
+
+<h4>
+  Autenticação
+</h4>
+
+Para autenticação, foi implementado um token JWT para validar o login do usuário em futuras requisições.
