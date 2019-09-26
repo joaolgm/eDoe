@@ -15,7 +15,7 @@ routes.get('/itens', ItemController.listaItensParaDoacao);   //NoToken
 routes.get('/doacoes', DoaController.historicoDoacao);   //NoToken
 routes.get('/item', authMiddleware, DoadorController.exibeItem);
 
-routes.post('/doador', authMiddleware, DoadorController.adicionaDoador);
+routes.post('/doador', DoadorController.adicionaDoador);   //NoToken
 routes.post('/receptor', ReceptorController.adicionaReceptor);   //NoToken
 routes.post('/item', authMiddleware,DoadorController.adicionaItem);
 routes.post('/item-necessario', ReceptorController.adicionaItemNecessario);   //NoToken
