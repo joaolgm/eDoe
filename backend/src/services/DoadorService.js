@@ -102,6 +102,7 @@ module.exports = {
 
     async removeUsuario(doc) {
         const removeUsuario = await Usuario.findOneAndDelete({ id: doc });
+        console.log(removeUsuario);
         await removeUsuario.save();
         return removeUsuario;
     },

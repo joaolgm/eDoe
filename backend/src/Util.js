@@ -1,8 +1,8 @@
 module.exports = {
     usuarioVazio(req, res) {
-        const { id, nome, email, celular, classe } = req;
+        const { id, nome, email, senha, celular, classe} = req;
 
-        if(!id || !nome || !email || !celular || !classe) {
+        if(!id || !nome || !email || !senha || !celular || !classe) {
             return res.status(400).json({ error: "Entrada invalida: parametro do usuario nao pode ser vazio ou nulo." });
         }
     },
@@ -22,6 +22,13 @@ module.exports = {
                 enumerable: true,
                 writable: false,
                 "value" : objeto.email});
+        };
+
+        if (objeto.senha != "") {
+            Object.defineProperty(update, "senha", {
+                enumerable: true,
+                writable: false,
+                "value" : objeto.senha});
         };
 
         if (objeto.celular != "") {

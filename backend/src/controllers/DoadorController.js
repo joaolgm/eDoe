@@ -1,4 +1,5 @@
 const Util = require('../Util');
+const Usuario = require('../models/Usuario');
 const DoadorService = require('../services/DoadorService');
 
 module.exports = {
@@ -23,7 +24,7 @@ module.exports = {
     },
 
     async pesquisaUsuarioPorId(req, res) {
-        const doc = req.params.id;
+        const doc = req.query.id;
 
         return res.send(await DoadorService.pesquisaUsuarioPorId(doc));
     },
@@ -34,17 +35,18 @@ module.exports = {
         return res.send(await DoadorService.exibeItem(idItem, idUsuario));
     },
 
-    async atualizaDoador(req, res) {  
-        const doc = req.params.id;
-
+    async atualizaDoador(req, res) {  //problema
+        const doc = req.query.id;
+        console.log(req.body);
         const update = Util.usuarioUpdate(req.body);
 
         return res.json(await DoadorService.atualizaDoador(doc, update));
     },
 
-    async removeUsuario(req, res) { 
-        const doc = req.params.id;
-
+    async removeUsuario(req, res) {  //problema
+        const doc = req.query.id;
+        const removeUsuario = await Usuario.findOne({ id: doc });
+        console.log(removeUsuario);
         return res.json(await DoadorService.removeUsuario(doc));
     },
 

@@ -9,7 +9,7 @@ const routes = express.Router();
 
 //routes.use(authMiddleware);
 
-routes.get('/usuario/:id', DoadorController.pesquisaUsuarioPorId);
+routes.get('/usuario', DoadorController.pesquisaUsuarioPorId);
 routes.get('/item-descritores', ItemController.listaDescritorDeItensParaDoacao);
 routes.get('/itens', ItemController.listaItensParaDoacao);
 routes.get('/doacoes', DoaController.historicoDoacao);
@@ -22,11 +22,11 @@ routes.post('/item-necessario', ReceptorController.adicionaItemNecessario);
 routes.post('/matching', ReceptorController.matching);
 routes.post('/login', DoadorController.loginDoador);
 
-routes.put('/doador/:id', DoadorController.atualizaDoador);
+routes.put('/doador', DoadorController.atualizaDoador);
 routes.put('/receptor', ReceptorController.atualizaReceptor);
 routes.put('/item-necessario', ReceptorController.atualizaItemNecessario);
 
-routes.delete('/usuario/:id', DoadorController.removeUsuario);
+routes.delete('/usuario', DoadorController.removeUsuario);
 routes.delete('/item', DoadorController.removeItem);
 routes.delete('/item-necessario', ReceptorController.removeItemNecessario);
 routes.delete('/doacao', DoaController.realizaDoacao);
