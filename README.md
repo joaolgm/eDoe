@@ -51,4 +51,5 @@ Para a persistência de dados, usamos o MongoDB, um banco de dados não relacion
   Autenticação
 </h4>
 
-Para autenticação, foi implementado um token JWT para validar o login do usuário em futuras requisições.
+Para autenticação foi usado o JSON Web Token (jwt) e para implementação do mesmo se faz necessário um mecanismo de geração e validação de tokens, por meio de bibliotecas existentes.
+ Após o usuário logar, é gerado um token, que vai ser usado para requisições futuras, logo, sem esse token, determinadas rotas são inacessíveis para o mesmo.
