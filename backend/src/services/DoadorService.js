@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth')
 
 module.exports = {
-    async adicionaDoador(id, nome, email, senha, celular, classe, emailAdmin) {
-        const isAdmin = await Admin.findOne({ email: emailAdmin });
+    async adicionaDoador(id, nome, email, senha, celular, classe, tokenAdmin) {
+        const isAdmin = await Admin.findOne({ token: tokenAdmin });
 
         if (!isAdmin) {
             return "Acesso negado! Permissão apenas para admin"

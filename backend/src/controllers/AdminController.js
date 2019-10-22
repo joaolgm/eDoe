@@ -23,6 +23,24 @@ module.exports = {
         return res.json(admin);
     },
 
+    async loginAdmin(req, res) {
+        const { email, senha } = req.body;
+        const admin = await Admin.findOne({ email: email }).select('+senha');
+
+        if(!admin) {
+            return res.send(`Email não cadastrado: ${email}`);
+        }
+        
+        if(senha != admin.senha) {
+            return `Senha inválida`;
+        }
+
+        return res.json({
+            admin, 
+            token: jwt.sign(email, authConfig.secret)
+        });
+    },
+
     async removeAdmin(req, res) {
         const email = req.query.email;
 
@@ -30,26 +48,6 @@ module.exports = {
         await removeAdmin.save();
 
         return res.json(removeAdmin);
-    },
-
-    async geraToken(params = {}) {
-        return jwt.sign(params, authConfig.secret, {
-            expiresIn: 86400,
-        });
-    },
-
-    async loginAdmin(req, res) {
-        const { email } = req.body;
-        const admin = await Admin.findOne({ email });
-
-        if(!admin) {
-            return res.send(`Email não cadastrado: ${email}`);
-        }
-
-        return res.json( {
-            admin, 
-            token: this.geraToken({ id: admin.email })
-        });
-    },
+    }
 
 };

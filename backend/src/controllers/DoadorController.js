@@ -3,17 +3,15 @@ const DoadorService = require('../services/DoadorService');
 
 module.exports = {
     async adicionaDoador(req, res) {
-        const { id, nome, email, senha, celular, classe, emailAdmin } = req.body;
+        const { id, nome, email, senha, celular, classe, tokenAdmin } = req.body;
 
         Util.usuarioVazio(req.body, res); 
 
-        return res.json(await DoadorService.adicionaDoador(id, nome, email, senha, celular, classe, emailAdmin));
+        return res.json(await DoadorService.adicionaDoador(id, nome, email, senha, celular, classe, tokenAdmin));
     },
 
     async loginDoador(req, res) {
         const { email, senha } = req.body;
-        console.log(email);
-        console.log(senha);
 
         return res.json(await DoadorService.loginDoador(email, senha)); 
     },
