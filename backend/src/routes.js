@@ -4,7 +4,7 @@ const DoadorController = require('./controllers/DoadorController');
 const ReceptorController = require('./controllers/ReceptorController');
 const ItemController = require('./controllers/ItemController');
 const DoaController = require('./controllers/DoaController');
-
+const AdminController = require('./controllers/AdminController');
 const routes = express.Router();
 
 //routes.use(authMiddleware);
@@ -21,6 +21,7 @@ routes.post('/item', authMiddleware,DoadorController.adicionaItem);
 routes.post('/item-necessario', ReceptorController.adicionaItemNecessario);   //NoToken
 routes.post('/matching', authMiddleware, ReceptorController.matching);
 routes.post('/login', DoadorController.loginDoador);   //NoToken
+routes.post('/admin', AdminController.adicionaAdmin);
 
 routes.put('/doador', authMiddleware, DoadorController.atualizaDoador);
 routes.put('/receptor', ReceptorController.atualizaReceptor);   //NoToken
@@ -30,5 +31,6 @@ routes.delete('/usuario', authMiddleware, DoadorController.removeUsuario);
 routes.delete('/item', authMiddleware, DoadorController.removeItem);
 routes.delete('/item-necessario', authMiddleware, ReceptorController.removeItemNecessario);
 routes.delete('/doacao', authMiddleware, DoaController.realizaDoacao);
+routes.delete('/admin', AdminController.removeAdmin);
 
 module.exports = routes;

@@ -12,6 +12,8 @@ module.exports = {
 
     async loginDoador(req, res) {
         const { email, senha } = req.body;
+        console.log(email);
+        console.log(senha);
 
         return res.json(await DoadorService.loginDoador(email, senha)); 
     },

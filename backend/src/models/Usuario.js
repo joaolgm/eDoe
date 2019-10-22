@@ -30,6 +30,9 @@ const UsuarioSchema = new Schema({
     doador: {
         type: Boolean,
     },
+    admin: {
+        type: Boolean,
+    },
     itens: [{ 
         type : ObjectId, 
     }],
