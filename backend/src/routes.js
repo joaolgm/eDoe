@@ -21,6 +21,7 @@ routes.post('/item', authMiddleware,DoadorController.adicionaItem);
 routes.post('/item-necessario', ReceptorController.adicionaItemNecessario);   //NoToken
 routes.post('/matching', authMiddleware, ReceptorController.matching);
 routes.post('/login', DoadorController.loginDoador);   //NoToken
+routes.post('/admin/login', AdminController.loginAdmin);
 routes.post('/admin', AdminController.adicionaAdmin);
 
 routes.put('/doador', authMiddleware, DoadorController.atualizaDoador);

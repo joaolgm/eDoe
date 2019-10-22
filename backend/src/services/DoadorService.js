@@ -1,11 +1,18 @@
 const Usuario = require('../models/Usuario');
+const Admin = require('../models/Admin');
 const Item = require('../models/Item');
 const jwt = require('jsonwebtoken');
 
 const authConfig = require('../config/auth')
 
 module.exports = {
-    async adicionaDoador(id, nome, email, senha, celular, classe) {
+    async adicionaDoador(id, nome, email, senha, celular, classe, emailAdmin) {
+        const isAdmin = await Admin.findOne({ email: emailAdmin });
+
+        if (!isAdmin) {
+            return "Acesso negado! Permissão apenas para admin"
+        }
+        
         const doadorExiste = await Usuario.findOne({ id: id });
 
         if(doadorExiste) {
@@ -46,7 +53,7 @@ module.exports = {
 
         return {
             doador, 
-            token: this.geraToken({ id: doador.id })
+            token: this.geraToken({ id: doador.email })
         };
     },
 
