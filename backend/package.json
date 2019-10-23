@@ -7,6 +7,7 @@
     "eDoe": "nodemon src/server.js"
   },
   "dependencies": {
+    "apicache": "^1.5.2",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "csv-parser": "^2.3.0",
