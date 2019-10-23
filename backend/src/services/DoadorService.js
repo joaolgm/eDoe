@@ -7,10 +7,11 @@ const authConfig = require('../config/auth')
 
 module.exports = {
     async adicionaDoador(id, nome, email, senha, celular, classe, tokenAdmin) {
-        const isAdmin = await Admin.findOne({ token: tokenAdmin });
 
-        if (!isAdmin) {
-            return "Acesso negado! Permissão apenas para admin"
+        try {
+            jwt.verify(tokenAdmin, authConfig.secret);
+        } catch (error) {
+            return "Acesso negado! Permissão apenas para admin";
         }
         
         const doadorExiste = await Usuario.findOne({ id: id });

@@ -18,22 +18,20 @@ module.exports = {
         
         return stringFinal;
     },
+    
+    wait(ms){
+        var start = new Date().getTime();
+        var end = start;
+        while(end < start + ms) {
+          end = new Date().getTime();
+       }
+    },
 
     async listaItensParaDoacao() {
-        var arrayItens = await Item.find();
-        var stringFinal = '';
+        var itens = await Item.find();
 
-        function printItens(item) {
-            return `${item.id} - ${item.descritor}, tags:[${item.tags}], quantidade: ${item.quantidade}, doador: ${item.idUsuario} | `;
-        };
+        //this.wait(3000);
 
-        var rounds = arrayItens.length;
-        for (let i = 0; i < rounds; i++) {
-            if(arrayItens[i].necessario == false) {
-                stringFinal = stringFinal + printItens(arrayItens[i]);
-            }
-        }
-        
-        return stringFinal;
+        return itens;
     }
 }
