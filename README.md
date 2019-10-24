@@ -62,4 +62,4 @@ Para autenticação foi usado o JSON Web Token (jwt) e para implementação do m
   Desempenho
 </h4>
 
-Para o desempenho, foi utilizada a técnica de caching para melhorar a performance das requisições do tipo GET de nossos serviços.
+Para o desempenho, foi utilizada a técnica de caching para melhorar a performance de algumas requisições do tipo GET de nossos serviços.
