@@ -58,3 +58,8 @@ Para autenticação foi usado o JSON Web Token (jwt) e para implementação do m
 <p align="center">
   <img src="https://raw.githubusercontent.com/joaolgm/eDoe/master/jwt.png">
 </p>
+<h4>
+  Desempenho
+</h4>
+
+Para o desempenho, foi utilizada a técnica de caching para melhorar a performance das requisições do tipo GET de nossos serviços.
