@@ -69,3 +69,5 @@ Para o desempenho, foi utilizada a técnica de caching para melhorar a performan
 </p>
 
 O gráfico mostra as durações de uma requisição do tipo GET, onde a primeira requisição guarda os dados em cache para que as requisições posteriores possam usar os mesmos, nota-se uma grande diminuição nas durações das requisições seguintes em relação a primeira requisição
+
+https://htmlpreview.github.io/?https://github.com/joaolgm/eDoe/blob/master/index.html
