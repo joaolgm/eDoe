@@ -1,6 +1,6 @@
-const Doa = require('../models/Doa');
-const Item = require('../models/Item');
-const Usuario = require('../models/Usuario');
+const Doa = require('./Doa');
+const Item = require('../Item/Item');
+const Usuario = require('../Usuario/Usuario');
 
 module.exports = {
     async realizaDoacao(idItemNec, idItemDoador, data) {

@@ -1,5 +1,5 @@
-const DoaService = require('../services/DoaService');
-const Item = require('../models/Item');
+const DoaService = require('./DoaService');
+const Item = require('../Item/Item');
 
 module.exports = {
 

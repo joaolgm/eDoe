@@ -1,6 +1,6 @@
-const Usuario = require('../models/Usuario');
-const Admin = require('../models/Admin');
-const Item = require('../models/Item');
+const Usuario = require('./Usuario');
+const Admin = require('../Admin/Admin');
+const Item = require('../Item/Item');
 const jwt = require('jsonwebtoken');
 
 const authConfig = require('../config/auth')

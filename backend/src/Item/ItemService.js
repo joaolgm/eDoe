@@ -1,4 +1,4 @@
-const Item = require('../models/Item');
+const Item = require('./Item');
 
 module.exports = {
     async listaDescritorDeItensParaDoacao() {

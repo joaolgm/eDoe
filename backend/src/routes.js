@@ -1,11 +1,11 @@
 const express = require('express');
 const apicache = require('apicache');
 const authMiddleware = require('./middlewares/auth');
-const DoadorController = require('./controllers/DoadorController');
-const ReceptorController = require('./controllers/ReceptorController');
-const ItemController = require('./controllers/ItemController');
-const DoaController = require('./controllers/DoaController');
-const AdminController = require('./controllers/AdminController');
+const DoadorController = require('./Usuario/DoadorController');
+const ReceptorController = require('./Usuario/ReceptorController');
+const ItemController = require('./Item/ItemController');
+const DoaController = require('./Doa/DoaController');
+const AdminController = require('./Admin/AdminController');
 const routes = express.Router();
 
 let cache = apicache.middleware;

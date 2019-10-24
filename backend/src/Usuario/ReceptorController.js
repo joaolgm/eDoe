@@ -1,4 +1,4 @@
-const ReceptorService = require('../services/ReceptorService');
+const ReceptorService = require('./ReceptorService');
 const Util = require('../Util');
 
 module.exports = {

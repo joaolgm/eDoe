@@ -1,5 +1,5 @@
-const Usuario = require('../models/Usuario');
-const Item = require('../models/Item');
+const Usuario = require('./Usuario');
+const Item = require('../Item/Item');
 const csv = require('csvtojson');
 
 module.exports = {

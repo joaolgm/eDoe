@@ -1,4 +1,4 @@
-const ItemService = require('../services/ItemService');
+const ItemService = require('./ItemService');
 
 module.exports = {
     async listaDescritorDeItensParaDoacao(req, res) {
