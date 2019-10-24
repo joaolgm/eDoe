@@ -64,7 +64,8 @@ Para autenticação foi usado o JSON Web Token (jwt) e para implementação do m
 
 Para o desempenho, foi utilizada a técnica de caching para melhorar a performance de algumas requisições do tipo GET de nossos serviços.
 
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/joaolgm/eDoe/master/imagens/graficoDesempenho.jpeg">
 </p>
+
+O gráfico mostra as durações de uma requisição do tipo GET, onde a primeira requisição guarda os dados em cache para que as requisições posteriores possam usar os mesmos, nota-se uma grande diminuição nas durações das requisições seguintes em relação a primeira requisição
