@@ -11,7 +11,13 @@ module.exports = {
         try {
             jwt.verify(tokenAdmin, authConfig.secret);
         } catch (error) {
-            return "Acesso negado! Permissão apenas para admin";
+            return { error: "Acesso negado! Token inválido" };
+        }
+
+        const adminEmail = jwt.decode(tokenAdmin);
+        
+        if(adminEmail.id) {
+            return { error: "Acesso negado! Acesso restrito para admin" };
         }
         
         const doadorExiste = await Usuario.findOne({ id: id });

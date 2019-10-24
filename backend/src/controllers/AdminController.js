@@ -4,11 +4,11 @@ const authConfig = require('../config/auth.json');
 
 module.exports = {
     async adicionaAdmin(req, res) {
-        const { nome, email, senha} = req.body;
+        const { nome, email, senha } = req.body;
 
         //Util.usuarioVazio(req.body, res); 
 
-        const adminExiste = await Admin.findOne({ email });
+        const adminExiste = await Admin.findOne({ email: email });
 
         if(adminExiste) {
             return adminExiste;
@@ -44,7 +44,7 @@ module.exports = {
     async removeAdmin(req, res) {
         const email = req.query.email;
 
-        const removeAdmin = await Admin.findOneAndDelete({ email });
+        const removeAdmin = await Admin.findOneAndDelete({ email: email });
         await removeAdmin.save();
 
         return res.json(removeAdmin);
