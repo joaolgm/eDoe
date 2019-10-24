@@ -38,7 +38,7 @@ requisições são feitas em: http://localhost:4444/
 </h4>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/joaolgm/eDoe/master/eDoe.png">
+  <img src="https://raw.githubusercontent.com/joaolgm/eDoe/master/imagens/eDoe.png">
 </p>
 
 <h4>
@@ -56,10 +56,15 @@ Para autenticação foi usado o JSON Web Token (jwt) e para implementação do m
 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/joaolgm/eDoe/master/jwt.png">
+  <img src="https://raw.githubusercontent.com/joaolgm/eDoe/master/imagens/eDoeJWT.jpg">
 </p>
 <h4>
   Desempenho
 </h4>
 
 Para o desempenho, foi utilizada a técnica de caching para melhorar a performance de algumas requisições do tipo GET de nossos serviços.
+
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/joaolgm/eDoe/master/imagens/graficoDesempenho.jpeg">
+</p>
